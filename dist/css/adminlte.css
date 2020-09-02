@@ -3880,7 +3880,7 @@ input[type="button"].btn-block {
 }
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {
-  content: "Explorar";
+  content: "Browse";
 }
 
 .custom-file-input ~ .custom-file-label[data-browse]::after {
@@ -3915,7 +3915,7 @@ input[type="button"].btn-block {
   padding: 0.375rem 0.75rem;
   line-height: 1.5;
   color: #495057;
-  content: "Explorar";
+  content: "Browse";
   background-color: #e9ecef;
   border-left: inherit;
   border-radius: 0 0.25rem 0.25rem 0;

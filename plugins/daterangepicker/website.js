@@ -65,27 +65,27 @@ $(document).ready(function() {
 
       if ($('#ranges').is(':checked')) {
         options.ranges = {
-          'Hoy': [moment(), moment()],
-          'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Últimos 7 Días': [moment().subtract(6, 'days'), moment()],
-          'Últimos 30 Días': [moment().subtract(29, 'days'), moment()],
-          'Este Mes': [moment().startOf('month'), moment().endOf('month')],
-          'Último Mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          'Today': [moment(), moment()],
+          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         };
       }
 
       if ($('#locale').is(':checked')) {
         options.locale = {
-          format: 'YYYY/MM/DD',
+          format: 'MM/DD/YYYY',
           separator: ' - ',
-          applyLabel: 'Aplicar',
-          cancelLabel: 'Cancelar',
-          fromLabel: 'Desde',
-          toLabel: 'Hasta',
+          applyLabel: 'Apply',
+          cancelLabel: 'Cancel',
+          fromLabel: 'From',
+          toLabel: 'To',
           customRangeLabel: 'Custom',
           weekLabel: 'W',
-          daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi','Sa'],
-          monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           firstDay: 1
         };
       }
@@ -132,7 +132,7 @@ $(document).ready(function() {
       if ($('#cancelButtonClasses').val().length && $('#cancelButtonClasses').val() != 'btn-default')
         options.cancelClass = $('#cancelButtonClasses').val();
 
-      $('#config-demo').daterangepicker(options, function(start, end, label) { console.log('Nuevo rango de fecha seleccionado: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')'); });
+      $('#config-demo').daterangepicker(options, function(start, end, label) { console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')'); });
       
       if (typeof options.ranges !== 'undefined') {
         options.ranges = {};
@@ -141,12 +141,12 @@ $(document).ready(function() {
       var option_text = JSON.stringify(options, null, '    ');
 
       var replacement = "ranges: {\n"
-          + "        'Hoy': [moment(), moment()],\n"
-          + "        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],\n"
-          + "        'Últimos 7 Días': [moment().subtract(6, 'days'), moment()],\n"
-          + "        'Últimos 30 Días': [moment().subtract(29, 'days'), moment()],\n"
-          + "        'Este Mes': [moment().startOf('month'), moment().endOf('month')],\n"
-          + "        'Último Mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]\n"
+          + "        'Today': [moment(), moment()],\n"
+          + "        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],\n"
+          + "        'Last 7 Days': [moment().subtract(6, 'days'), moment()],\n"
+          + "        'Last 30 Days': [moment().subtract(29, 'days'), moment()],\n"
+          + "        'This Month': [moment().startOf('month'), moment().endOf('month')],\n"
+          + "        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]\n"
           + "    }";
       option_text = option_text.replace(new RegExp('"ranges"\: \{\}', 'g'), replacement);
 

@@ -6,7 +6,7 @@ $(function () {
     fontStyle: 'bold'
   }
 
-  var mode      = 'smart'
+  var mode      = 'index'
   var intersect = true
 
   var $salesChart = $('#sales-chart')
