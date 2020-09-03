@@ -1,6 +1,6 @@
 # Contributing to powerUp
 
-powerUp is a firt starter project and accepts contributions of code and documentation from the community. These contributions are made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [powerUp repository](https://github.com/ale94lko/powerUp) on GitHub.
+**powerUp** is a First-Starter Project for developers and accepts contributions of code and documentation from the community. These contributions are made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [powerUp repository](https://github.com/ale94lko/powerUp) on GitHub.
 
 Issues are a quick way to point out a bug. If you find a bug or documentation error in powerUp then please check a few things first:
 
