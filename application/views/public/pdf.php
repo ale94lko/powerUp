@@ -9,7 +9,7 @@
             else if ($pdf == 'user') {
                 echo '<title> Listado de usuarios </title>';
             }
-            else if ($pdf == 'trace') {
+            else if ($pdf == 'Log') {
                 echo '<title> Listado de trazas </title>';
             }
             else if ($pdf == 'support') {
@@ -293,7 +293,7 @@
                             else if ($pdf == 'user') {
                                 echo '<p class="text-center h1">Listado de usuarios</p>';
                             }
-                            else if ($pdf == 'trace') {
+                            else if ($pdf == 'Log') {
                                 echo '<p class="text-center h1">Listado de trazas</p>';
                             }
                             else if ($pdf == 'support') {
@@ -450,7 +450,7 @@
                                             </tbody>
                                             <?php
                                         }
-                                        else if ($pdf == 'trace') {
+                                        else if ($pdf == 'Log') {
                                             ?>
                                             <thead>
                                                 <tr>

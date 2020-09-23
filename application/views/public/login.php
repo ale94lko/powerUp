@@ -13,16 +13,21 @@ if ($this->session->userdata('message_type') != NULL) {
 
 <div class="login-box">
     <div class="login-logo">
-        <span class="oi" data-glyph="fa " title="icon name" aria-hidden="true"></span><b>powerUp</b> System
+        <img src="<?php echo base_url();?>dist/img/favicon.png"
+             alt="Logo"
+             style="margin-bottom: 10px"
+             width="40px"
+        >
+        <span class="oi" data-glyph="fa " title="icon name" aria-hidden="true"></span><b>powerUp</b>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Login to start your session</p>
+            <p class="login-box-msg">Sign in to start your session</p>
 
             <?php echo form_open('login'); ?>
                 <div class="input-group mb-3">
-                    <input type="text" name="user" value="<?php echo set_value('user'); ?>" class="form-control" placeholder="User">
+                    <input type="text" name="username" value="<?php echo set_value('username'); ?>" class="form-control" placeholder="Username">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -30,7 +35,7 @@ if ($this->session->userdata('message_type') != NULL) {
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="pass" value="<?php echo set_value('pass'); ?>" class="form-control" placeholder="Password">
+                    <input type="password" name="password" value="<?php echo set_value('password'); ?>" class="form-control" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -39,7 +44,7 @@ if ($this->session->userdata('message_type') != NULL) {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                     </div>
                 </div>
                 <?php

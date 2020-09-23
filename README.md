@@ -7,11 +7,11 @@ Highly customizable and easy to use and adapt to your necessities.
 
 ## Installation
 
-There are multiple ways to install powerUp.
+There are multiple ways to install powerUp
 
 ### Download
 
-Download from [GitHub releases](https://github.com/ale94lko/powerUp/releases).
+Download from [GitHub releases](https://github.com/ale94lko/powerUp/releases)
 
 ### Using The Command Line:
 
@@ -26,13 +26,16 @@ Download from [GitHub releases](https://github.com/ale94lko/powerUp/releases).
 ## Requirements
 
 - It is necessary to have installed an application server such as [Xampp](https://github.com/ale94lko/powerUp/releases) 
-from which you will also be able to manage your Database system.
+from which you will also be able to manage your Database system
 
 ## Configuration
 
-- Run the script **"powerUp.sql"** (finded into the project root) into your Database Manager to create the project Database.
-- Copy the project files into your aplication server's folder (in case of using Xampp **"C:\xampp\htdocs"**).
-- Run from your browser [powerUp](https://localhost/powerUp/)
+- Run the script **"powerUp.sql"** (finded into the project root) into your Database Manager to create the project Database
+- Copy the project files into your aplication server's folder (in case of using Xampp **"C:\xampp\htdocs"**)
+- Run from your browser https://localhost/powerUp
+- Enter credential
+    - User: admin 
+    - Password: Admin@1
 
 ## Browser Support
 

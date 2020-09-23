@@ -115,11 +115,13 @@
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="<?php echo base_url();?>uploads/photos/<?php
-                        $user_data = $this->session->userdata('user_data')[0];
+                        $user_data = $this->session->userdata('user_data');
                         if ($user_data['photo']==1) {
-                            echo $this->session->userdata('ci').'.png';
+                            $key = hash("sha256",$user_data['username'].$user_data['id']);
+                            echo $key.'.png';
                         } else {
-                            echo '00000000000.png';
+                            $key = hash("sha256","unknown");
+                            echo $key.'.png';
                         }
                         ?>" class="user-image img-circle elevation-2" alt="User Image">
                         <span class="d-none d-md-inline">
@@ -130,17 +132,18 @@
                         <!-- User image -->
                         <li class="user-header bg-<?php echo $this->session->userdata('theme_setting');?>">
                             <img src="<?php echo base_url();?>uploads/photos/<?php
-                            $user_data = $this->session->userdata('user_data')[0];
                             if ($user_data['photo']==1) {
-                                echo $this->session->userdata('ci').'.png';
+                                $key = hash("sha256",$user_data['username'].$user_data['id']);
+                                echo $key.'.png';
                             } else {
-                                echo '00000000000.png';
+                                $key = hash("sha256","unknown");
+                                echo $key.'.png';
                             }
                             ?>" class="img-circle elevation-2" alt="User Image">
 
                             <p>
-                                <?php echo $this->session->userdata('user_data')[0]['name_1']." ".$this->session->userdata('user_data')[0]['name_2']." - ".$this->session->userdata('user_data')[0]['line_name']; ?>
-                                <small><?php echo $this->session->userdata('user_data')[0]['profession']; ?></small>
+                                <?php echo $user_data['first_name']." - ".$user_data['title']; ?>
+                                <small><?php echo $user_data['profession']; ?></small>
                             </p>
                         </li>
                         <!-- Menu Body --
@@ -159,8 +162,8 @@
                         </li>-->
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <a href="<?php echo site_url('handle/edit'); ?>" class="btn btn-default btn-flat">Editar perfil</a>
-                            <a href="<?php echo site_url('handle/loggout'); ?>" class="btn btn-default btn-flat float-right"></i>Salir</a>
+                            <a href="<?php echo site_url('handle/edit'); ?>" class="btn btn-default btn-flat">Edit profile</a>
+                            <a href="<?php echo site_url('handle/loggout'); ?>" class="btn btn-default btn-flat float-right"></i>Sign out</a>
                         </li>
                     </ul>
                 </li>

@@ -20,15 +20,15 @@ class Login extends CI_Controller {
     public function index() {             
         $config = array(
             array(
-                'field' => 'user',
-                'label' => 'user',
+                'field' => 'username',
+                'label' => 'username',
                 'rules' => 'required',
                 'errors' => array(
                         'required' => 'Please, enter the %s',
                 ),
             ),
             array(
-                'field' => 'pass',
+                'field' => 'password',
                 'label' => 'password',
                 'rules' => 'required',
                 'errors' => array(
@@ -47,7 +47,7 @@ class Login extends CI_Controller {
             if (!$val) {
                 $userdata = array(
                     'message_type'      => 'error',
-                    'message'           => 'Wrong user and/or password ',
+                    'message'           => 'Wrong username and/or password ',
                     'logged_in' => FALSE
                 );
                 $this->session->set_userdata($userdata);
@@ -55,19 +55,19 @@ class Login extends CI_Controller {
                 $this->load->view('public/login');
                 $this->load->view('templates/scripts');
             } else {                
-                $user = $this->security->xss_clean($this->input->post('user'));
-                $pass = hash("sha256",$this->security->xss_clean($this->input->post('pass')));
-                
+                $username = $this->security->xss_clean($this->input->post('username'));
+                $user_id = $this->login_model->get_user_id($username);
+
                 $userdata = array(
-                    'user'              => $user,
-                    'pass'              => $pass,
+                    'user_id'           => $user_id,
+                    'username'          => $username,
                     'message_type'      => 'success',
                     'message'           => 'You have successfully logged in',
                     'logged_in'         => TRUE
                 );
                 $cookie = array(
                     'name'   => 'user',
-                    'value'  => $user,
+                    'value'  => $username,
                     'expire' => '0'
                 );
                 if ($this->input->cookie('user', TRUE) == NULL) {
@@ -78,7 +78,6 @@ class Login extends CI_Controller {
 
                 $action = "Logged in successfully";
                 $type = 0;
-                $user_id = $this->login_model->get_user_id($user);
                 $this->log_model->insert_log($action, $user_id, $type);
                 
                 redirect('handle');
@@ -89,7 +88,7 @@ class Login extends CI_Controller {
     public function timeout() {
         $config = array(
             array(
-                'field' => 'pass',
+                'field' => 'password',
                 'label' => 'password',
                 'rules' => 'required',
                 'errors' => array(
@@ -101,8 +100,8 @@ class Login extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
             $user = $this->input->cookie('user', TRUE);
-            $data['ci'] = $this->login_model->get_user_ci($user);
-            $data['user_data'] = $this->login_model->get_worker($data['ci'])[0];
+            $data['id'] = $this->login_model->get_user_id($user);
+            $data['user_data'] = $this->login_model->get_user($data['id'])[0];
             $this->load->view('templates/header');
             $this->load->view('public/timeout', $data);
             $this->load->view('templates/scripts');
@@ -123,19 +122,19 @@ class Login extends CI_Controller {
                 $this->load->view('public/timeout', $data);
                 $this->load->view('templates/scripts');
             } else {
-                $user = $this->input->cookie('user', TRUE);
-                $pass = hash("sha256", $this->security->xss_clean($this->input->post('pass')));
+                $username = $this->input->cookie('user', TRUE);
+                $password = hash("sha256", $this->security->xss_clean($this->input->post('password')));
 
                 $userdata = array(
-                    'user' => $user,
-                    'pass' => $pass,
+                    'username' => $username,
+                    'password' => $password,
                     'message_type' => 'success',
                     'message' => 'You have successfully logged in',
                     'logged_in' => TRUE
                 );
                 $cookie = array(
                     'name' => 'user',
-                    'value' => $user,
+                    'value' => $username,
                     'expire' => '0'
                 );
                 if ($this->input->cookie('user', TRUE) == NULL) {
@@ -184,8 +183,8 @@ class Login extends CI_Controller {
                 $this->load->view('public/forgot_password');
                 $this->load->view('templates/scripts');
             } else {
-                $user = $this->security->xss_clean($this->input->post('user'));
-                $user_id = $this->login_model->get_user_id($user);
+                $username = $this->security->xss_clean($this->input->post('username'));
+                $user_id = $this->login_model->get_user_id($username);
                 $timestring = '%H:%i:%s';
                 $_time = time();
                 $time = mdate($timestring, $_time);
@@ -203,7 +202,7 @@ class Login extends CI_Controller {
 
                 $action = "Request password reset";
                 $type = 0;
-                $user_id = $this->login_model->get_user_id($user);
+                $user_id = $this->login_model->get_user_id($username);
                 $this->log_model->insert_log($action, $user_id, $type);
 
                 redirect('login');
@@ -213,10 +212,10 @@ class Login extends CI_Controller {
 
     public function pass_recover(){
 
-        $user = $this->security->xss_clean($this->input->post('user'));
+        $username = $this->security->xss_clean($this->input->post('username'));
         $email = $this->security->xss_clean($this->input->post('email'));
         
-        $data = $this->login_model->recover($user, $email);
+        $data = $this->login_model->recover($username, $email);
                 
         if ($data == TRUE){
             return TRUE;
@@ -227,10 +226,10 @@ class Login extends CI_Controller {
 
     public function user(){
 
-        $user = $this->security->xss_clean($this->input->post('user'));
-        $pass = hash("sha256",$this->security->xss_clean($this->input->post('pass')));
+        $username = $this->security->xss_clean($this->input->post('username'));
+        $password = hash("sha256",$this->security->xss_clean($this->input->post('password')));
 
-        $data = $this->login_model->check($user, $pass);
+        $data = $this->login_model->check($username, $password);
 
         if ($data == TRUE){
             return TRUE;

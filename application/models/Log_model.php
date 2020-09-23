@@ -8,7 +8,7 @@ class Log_model extends CI_Model {
     }
     
     public function insert_log($action, $user_id, $type) {        
-        if ($action != NULL && $user_id != NULL) {
+        if ($action != NULL && $user_id != NULL && $type != NULL) {
             $ip = $this->input->ip_address();        
             $timestring = '%H:%i:%s';
             $_time = time();
@@ -29,15 +29,11 @@ class Log_model extends CI_Model {
             return NULL;            
         }        
     }
-    
-    public function get_log() {        
-        $query = $this->db->query("SELECT log.id, type, action, ip, time, date, user.user  FROM log INNER JOIN user ON log.user_id = user.id ORDER BY log.id DESC LIMIT 100");
+
+    //cambiar para query builder
+    public function get_log($limit) {
+        $query = $this->db->query("SELECT log.id, type, action, ip, time, date, user.username  FROM log INNER JOIN user ON log.user_id = user.id ORDER BY log.id DESC LIMIT $limit");
         return $query->result_array();
     }
-    
-    public function export_log(){        
-        $query = $this->db->query("SELECT log.id, type, action, ip, time, date, user.user  FROM log INNER JOIN user ON log.user_id = user.id ORDER BY log.id DESC LIMIT 50");
-        return $query->result_array();
-    }
-    
+
 }

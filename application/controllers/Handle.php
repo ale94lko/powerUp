@@ -20,8 +20,8 @@ class Handle extends CI_Controller {
     }
 
     public function index($class = NULL, $method = NULL, $argument1 = NULL, $argument2 = NULL) {
-        $user = $this->session->userdata('user');
-        $id = $this->handle_model->get_user_id($user);
+        $username = $this->session->userdata('username');
+        $id = $this->handle_model->get_user_id($username);
         $data['permission'] = $this->handle_model->get_user_permission($id);
 
         $permission_group[] = FALSE;
@@ -31,10 +31,11 @@ class Handle extends CI_Controller {
 
         //$notifications = $this->get_notifications($data['permission'], $id);
         $data['view'] = "home";
-        $key = hash("sha256",$user.$id);
+        $data['user_data'] = $this->handle_model->get_user($id)[0];
+        $key = hash("sha256",$username.$id);
         $userdata = array(
-            'id' => $id,
             'view' => 'home',
+            'user_data' => $data['user_data'],
             //'notification' => $notifications,
             'permission' => $data['permission'],
             'permission_group' => $permission_group,
@@ -61,8 +62,8 @@ class Handle extends CI_Controller {
 
         $config = array(
             array(
-                'field' => 'user',
-                'label' => 'user',
+                'field' => 'username',
+                'label' => 'username',
                 'rules' => 'required|min_length[5]|max_length[15]|alpha_numeric',
                 'errors' => array(
                     'required' => 'Please, enter the %s',
@@ -86,10 +87,10 @@ class Handle extends CI_Controller {
             $view = "edit";
             $this->load_view($controller, $view, $data);
         } else {
-            $user = $this->security->xss_clean($this->input->post('user'));
+            $username = $this->security->xss_clean($this->input->post('username'));
             $id = $this->session->userdata('id');
             $key = $this->session->userdata('key');
-            $val = $this->handle_model->verify_user_name($user, $id);
+            $val = $this->handle_model->verify_username($username, $id);
 
             if ($val) {
                 $config['upload_path'] = './uploads/photos/';
@@ -108,10 +109,10 @@ class Handle extends CI_Controller {
                     $error = $this->upload->display_errors();
                     if ($error == "<p>You have not selected any files to upload</p>") {
                         $photo = 0;
-                        $this->handle_model->edit_user_name($user, $id);
+                        $this->handle_model->edit_user_name($username, $id);
                         $this->handle_model->edit_user($photo, $key);
                         $userdata = array(
-                            'user' => $user,
+                            'username' => $username,
                             'message_type' => 'success',
                             'message' => 'You have successfully modified your user profile'
                         );
@@ -142,10 +143,10 @@ class Handle extends CI_Controller {
                     }
                 } else {
                     $photo = 1;
-                    $this->handle_model->edit_user_name($user, $id);
+                    $this->handle_model->edit_user_name($username, $id);
                     $this->handle_model->edit_user($photo, $id);
                     $userdata = array(
-                        'user' => $user,
+                        'username' => $username,
                         'message_type' => 'success',
                         'message' => 'You have successfully modified your user profile'
                     );
